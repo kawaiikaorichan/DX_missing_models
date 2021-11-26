@@ -11,5 +11,7 @@
 #include "framework.h"
 #include "SADXModLoader.h"
 #include "IniFile.hpp"
+#include "Trampoline.h"
+#include "ModelInfo.h"
 
 #endif //PCH_H
