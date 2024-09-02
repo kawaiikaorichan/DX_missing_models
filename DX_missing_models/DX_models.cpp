@@ -107,9 +107,10 @@ extern "C"
 		ReplacePVM("egm1eggman", "eggman_dx");
 		ReplacePVM("egm2_common", "egm2_common_dx");
 		ReplacePVM("egm3mdl", "egm3mdl_dx");
-		ReplacePVM("ev_eggmoble0", "ev_eggmoble0_dx");
+		ReplacePVM("ev_eggmoble0", "ev_eggmoble0_dx");		
 		ReplacePVM("ev_s_msbody", "ev_s_msbody_dx");
 		ReplacePVM("ev_alife", "ev_alife_dx");
+		ReplacePVM("mrace_eggmoble", "mrace_eggmoble_dx");
 		ReplacePVM("amy_eggrobo_dc", "amy_eggrobo_dx");
 		ReplacePVM("tikal_dc", "tikal_dx");
 		ReplacePVM("eggman_dc", "eggman_dx");
@@ -121,6 +122,7 @@ extern "C"
 		ReplacePVM("ev_eggmoble0_dc", "ev_eggmoble0_dx");
 		ReplacePVM("ev_s_msbody_dc", "ev_s_msbody_dx");
 		ReplacePVM("ev_alife_dc", "ev_alife_dx");
+		ReplacePVM("mrace_eggmoble_dc", "mrace_eggmoble_dx");
 	}
 	__declspec(dllexport) ModInfo SADXModInfo = { ModLoaderVer };
 }
