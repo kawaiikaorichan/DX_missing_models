@@ -94,7 +94,8 @@ void Init_Tikal()
 	*(NJS_MODEL_SADX*)0x008D4F28 = attach_004D4F28;
 	*(NJS_MODEL_SADX*)0x008D4CF0 = attach_004D4CF0;
 	*(NJS_MODEL_SADX*)0x008D4AB8 = attach_004D4AB8;
-	WriteData((NJS_MOTION**)0x008EC760, &animation_004EE3D0);
+	DataPointer(NJS_MOTION, shape_a_head, 0x8EE3D0);
+	shape_a_head = animation_004EE3D0;
 }
 
 extern "C"
@@ -146,6 +147,7 @@ extern "C"
 			ReplaceEXEData("tikal", path, helperFunctions);
 			std::string fullPath = path + (std::string)"\\ti_jvlist.ini";
 			helperFunctions.RegisterCharacterWelds(Characters_Tikal, fullPath.c_str());
+			Init_Tikal();
 			ReplacePVM("tikal", "tikal_dx");
 			ReplacePVM("tikal_dc", "tikal_dx");
 		}
