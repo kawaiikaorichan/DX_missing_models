@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "IniFile.hpp"
 #include "Eggman.h"
 #include "KidnappedAmy.h"
 #include "Tikal.h"
@@ -7,6 +8,12 @@
 //Macros
 #define ReplacePVM(a, b) helperFunctions.ReplaceFile("system\\" a ".PVM", "system\\" b ".PVM");
 HelperFunctions HelperFunctionsGlobal;
+
+static bool EnableAmy = true;
+static bool EnableEggman = true;
+static bool EnableTikal = true;
+static bool EnableMetal = true;
+static bool EnableDXChao = true;
 
 wchar_t* ConvertCharToWChar(const char* value)
 {
@@ -54,75 +61,108 @@ void Init_KidAmy()
 
 void Init_Eggman()
 {
-	WriteData((NJS_OBJECT**)0x2CD393C, &object_02AEB524);
-	WriteData((NJS_OBJECT**)0x2CD46F4, &object_02AEB524);
-	WriteData((NJS_OBJECT**)0x2CD594C, &object_02AEB524);
-	WriteData((NJS_OBJECT**)0x2CD6904, &object_02AEB524);
-	WriteData((NJS_OBJECT**)0x2D41A34, &object_02AEB524);
-	WriteData((NJS_OBJECT**)0x2D42BBC, &object_02AEB524);
-	WriteData((NJS_OBJECT**)0x2D44434, &object_02AEB524);
-	WriteData((NJS_OBJECT**)0x2DCDB14, &object_02AEB524);
-	WriteData((NJS_OBJECT**)0x2E2C844, &object_02AEB524);
-	WriteData((NJS_OBJECT**)0x2EEC334, &object_02AEB524);
-	WriteData((NJS_OBJECT**)0x3018C44, &object_02AEB524);
-	WriteData((NJS_OBJECT**)0x3019E5C, &object_02AEB524);
-	WriteData((NJS_OBJECT**)0x301B074, &object_02AEB524);
-	WriteData((NJS_OBJECT**)0x301C41C, &object_02AEB524);
-	WriteData((NJS_OBJECT**)0x301DE94, &object_02AEB524);
-	WriteData((NJS_OBJECT**)0x302015C, &object_02AEB524);
-	WriteData((NJS_OBJECT**)0x3021854, &object_02AEB524);
-	WriteData((NJS_OBJECT**)0x30220EC, &object_02AEB524);
-	WriteData((NJS_OBJECT**)0x321A55C, &object_02AEB524);
+	*(NJS_OBJECT*)0x02EE83E0 = object_02AE83E0;
+	*(NJS_OBJECT*)0x02EE7808 = object_02AE7808;
+	*(NJS_OBJECT*)0x02EE588C = object_02AE588C;
+	*(NJS_OBJECT*)0x02EE4FE0 = object_02AE4FE0;
+	*(NJS_OBJECT*)0x02EE4AFC = object_02AE4AFC;
+	*(NJS_OBJECT*)0x02EE43D8 = object_02AE43D8;
+	*(NJS_OBJECT*)0x02EE4194 = object_02AE4194;
+	*(NJS_OBJECT*)0x02EE3E98 = object_02AE3E98;
+	*(NJS_OBJECT*)0x02EE33F8 = object_02AE33F8;
+	*(NJS_OBJECT*)0x02EE2F14 = object_02AE2F14;
+	*(NJS_OBJECT*)0x02EE27F0 = object_02AE27F0;
+	*(NJS_OBJECT*)0x02EE25AC = object_02AE25AC;
+	*(NJS_OBJECT*)0x02EE22C0 = object_02AE22C0;
+	*(NJS_OBJECT*)0x02EE1804 = object_02AE1804;
+	*(NJS_OBJECT*)0x02EE1584 = object_02AE1584;
+	*(NJS_OBJECT*)0x02EE12C8 = object_02AE12C8;
+	*(NJS_OBJECT*)0x02EE11DC = object_02AE11DC;
+	*(NJS_OBJECT*)0x02EE10DC = object_02AE10DC;
+	*(NJS_OBJECT*)0x02EE0FB4 = object_02AE0FB4;
+	*(NJS_OBJECT*)0x02EE0EA0 = object_02AE0EA0;
+	*(NJS_OBJECT*)0x02EE0DB4 = object_02AE0DB4;
+	*(NJS_OBJECT*)0x02EE0CB4 = object_02AE0CB4;
+	*(NJS_OBJECT*)0x02EE0B8C = object_02AE0B8C;
 	WriteData((WeldInfo**)0x006F08FB, (WeldInfo*)&EventEggmobileWeldInfo_DX);
 }
 
 void Init_Tikal()
 {
-	WriteData((NJS_OBJECT**)0x07B37F8, &object_004D8AE8);
-	WriteData((NJS_MOTION**)0x07B382D, &animation_004EE3D0);	
+	*(NJS_MODEL_SADX*)0x008D8ABC = attach_004D8ABC;
+	*(NJS_MODEL_SADX*)0x008D5664 = attach_004D5664;
+	*(NJS_MODEL_SADX*)0x008D4F28 = attach_004D4F28;
+	*(NJS_MODEL_SADX*)0x008D4CF0 = attach_004D4CF0;
+	*(NJS_MODEL_SADX*)0x008D4AB8 = attach_004D4AB8;
+	WriteData((NJS_MOTION**)0x008EC760, &animation_004EE3D0);
 }
 
 extern "C"
 {
 	__declspec(dllexport) void __cdecl Init(const char* path, const HelperFunctions& helperFunctions)
 	{
-		ReplaceEXEData("KidnappedAmy", path, helperFunctions);
-		ReplaceEXEData("eggman", path, helperFunctions);
-		std::string fullPath = path + (std::string)"\\eg_jvlist.ini";
-		helperFunctions.RegisterCharacterWelds(Characters_Eggman, fullPath.c_str());
-		ReplaceEXEData("tikal", path, helperFunctions);
-		fullPath = path + (std::string)"\\ti_jvlist.ini";
-		helperFunctions.RegisterCharacterWelds(Characters_Tikal, fullPath.c_str());
-		ReplaceEXEData("metal", path, helperFunctions);
-		ReplaceEXEData("adv03_dll_data", path, helperFunctions);
-		Init_Eggman();
-		Init_KidAmy();
-		Init_Tikal();
+		const IniFile* config = new IniFile(std::string(path) + "\\config.ini");
 
-		ReplacePVM("amy_eggrobo", "amy_eggrobo_dx");
-		ReplacePVM("tikal", "tikal_dx");
-		ReplacePVM("eggman", "eggman_dx");
-		ReplacePVM("ev_eggman_body", "eggman_dx");
-		ReplacePVM("chaos6_eggman", "eggman_dx");
-		ReplacePVM("egm1eggman", "eggman_dx");
-		ReplacePVM("egm2_common", "egm2_common_dx");
-		ReplacePVM("egm3mdl", "egm3mdl_dx");
-		ReplacePVM("ev_eggmoble0", "ev_eggmoble0_dx");		
-		ReplacePVM("ev_s_msbody", "ev_s_msbody_dx");
-		ReplacePVM("ev_alife", "ev_alife_dx");
-		ReplacePVM("mrace_eggmoble", "mrace_eggmoble_dx");
-		ReplacePVM("amy_eggrobo_dc", "amy_eggrobo_dx");
-		ReplacePVM("tikal_dc", "tikal_dx");
-		ReplacePVM("eggman_dc", "eggman_dx");
-		ReplacePVM("ev_eggman_body_dc", "eggman_dx");
-		ReplacePVM("chaos6_eggman_dc", "eggman_dx");
-		ReplacePVM("egm1eggman_dc", "eggman_dx");
-		ReplacePVM("egm2_common_dc", "egm2_common_dx");
-		ReplacePVM("egm3mdl_dc", "egm3mdl_dx");
-		ReplacePVM("ev_eggmoble0_dc", "ev_eggmoble0_dx");
-		ReplacePVM("ev_s_msbody_dc", "ev_s_msbody_dx");
-		ReplacePVM("ev_alife_dc", "ev_alife_dx");
-		ReplacePVM("mrace_eggmoble_dc", "mrace_eggmoble_dx");
+		EnableAmy = config->getBool("Characters", "EnableAmy", true);
+		EnableEggman = config->getBool("Characters", "EnableEggman", true);
+		EnableTikal = config->getBool("Characters", "EnableTikal", false);
+		EnableMetal = config->getBool("Characters", "EnableMetal", true);
+		EnableDXChao = config->getBool("Characters", "EnableChao", true);
+		
+		if (EnableAmy)
+		{
+			ReplaceEXEData("KidnappedAmy", path, helperFunctions);
+			Init_KidAmy();
+			ReplacePVM("amy_eggrobo", "amy_eggrobo_dx");
+			ReplacePVM("amy_eggrobo_dc", "amy_eggrobo_dx");
+		}
+
+		if (EnableEggman)
+		{
+			ReplaceEXEData("eggman", path, helperFunctions);
+			std::string fullPath = path + (std::string)"\\eg_jvlist.ini";
+			helperFunctions.RegisterCharacterWelds(Characters_Eggman, fullPath.c_str());
+			Init_Eggman();
+			ReplacePVM("eggman", "eggman_dx");
+			ReplacePVM("ev_eggman_body", "eggman_dx");
+			ReplacePVM("chaos6_eggman", "eggman_dx");
+			ReplacePVM("egm1eggman", "eggman_dx");
+			ReplacePVM("egm2_common", "egm2_common_dx");
+			ReplacePVM("egm3mdl", "egm3mdl_dx");
+			ReplacePVM("ev_eggmoble0", "ev_eggmoble0_dx");
+			ReplacePVM("mrace_eggmoble", "mrace_eggmoble_dx");
+			ReplacePVM("eggman_dc", "eggman_dx");
+			ReplacePVM("ev_eggman_body_dc", "eggman_dx");
+			ReplacePVM("chaos6_eggman_dc", "eggman_dx");
+			ReplacePVM("egm1eggman_dc", "eggman_dx");
+			ReplacePVM("egm2_common_dc", "egm2_common_dx");
+			ReplacePVM("egm3mdl_dc", "egm3mdl_dx");
+			ReplacePVM("ev_eggmoble0_dc", "ev_eggmoble0_dx");
+			ReplacePVM("mrace_eggmoble_dc", "mrace_eggmoble_dx");
+		}
+
+		if (EnableTikal)
+		{
+			ReplaceEXEData("tikal", path, helperFunctions);
+			std::string fullPath = path + (std::string)"\\ti_jvlist.ini";
+			helperFunctions.RegisterCharacterWelds(Characters_Tikal, fullPath.c_str());
+			ReplacePVM("tikal", "tikal_dx");
+			ReplacePVM("tikal_dc", "tikal_dx");
+		}
+		
+		if (EnableMetal)
+		{
+			ReplaceEXEData("metal", path, helperFunctions);
+			ReplacePVM("ev_s_msbody", "ev_s_msbody_dx");
+			ReplacePVM("ev_s_msbody_dc", "ev_s_msbody_dx");
+		}
+		
+		if (EnableDXChao)
+		{
+			ReplaceEXEData("adv03_dll_data", path, helperFunctions);
+			ReplacePVM("ev_alife", "ev_alife_dx");
+			ReplacePVM("ev_alife_dc", "ev_alife_dx");
+		}
 	}
 	__declspec(dllexport) ModInfo SADXModInfo = { ModLoaderVer };
 }
