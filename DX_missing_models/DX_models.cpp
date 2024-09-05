@@ -89,6 +89,7 @@ void Init_Eggman()
 
 void Init_Tikal()
 {
+	*(NJS_OBJECT*)0x008D1A34 = object_004D1A34;
 	*(NJS_MOTION*)0x8EE3D0 = animation_004EE3D0;
 	WriteData((NJS_OBJECT**)0x007B37EA, ((NJS_OBJECT*)0x8D4880)->getnode(50));
 }
