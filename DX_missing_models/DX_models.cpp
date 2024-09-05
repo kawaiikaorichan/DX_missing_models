@@ -89,13 +89,8 @@ void Init_Eggman()
 
 void Init_Tikal()
 {
-	*(NJS_MODEL_SADX*)0x008D8ABC = attach_004D8ABC;
-	*(NJS_MODEL_SADX*)0x008D5664 = attach_004D5664;
-	*(NJS_MODEL_SADX*)0x008D4F28 = attach_004D4F28;
-	*(NJS_MODEL_SADX*)0x008D4CF0 = attach_004D4CF0;
-	*(NJS_MODEL_SADX*)0x008D4AB8 = attach_004D4AB8;
-	DataPointer(NJS_MOTION, shape_a_head, 0x8EE3D0);
-	shape_a_head = animation_004EE3D0;
+	*(NJS_MOTION*)0x8EE3D0 = animation_004EE3D0;
+	WriteData((NJS_OBJECT**)0x007B37EA, ((NJS_OBJECT*)0x8D4880)->getnode(50));
 }
 
 extern "C"
@@ -106,7 +101,7 @@ extern "C"
 
 		EnableAmy = config->getBool("Characters", "EnableAmy", true);
 		EnableEggman = config->getBool("Characters", "EnableEggman", true);
-		EnableTikal = config->getBool("Characters", "EnableTikal", false);
+		EnableTikal = config->getBool("Characters", "EnableTikal", true);
 		EnableMetal = config->getBool("Characters", "EnableMetal", true);
 		EnableDXChao = config->getBool("Characters", "EnableChao", true);
 		
