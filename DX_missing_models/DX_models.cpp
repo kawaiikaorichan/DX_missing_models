@@ -89,9 +89,9 @@ void Init_Eggman()
 
 void Init_Tikal()
 {
-	*(NJS_OBJECT*)0x008D1A34 = object_004D1A34;
 	*(NJS_MOTION*)0x8EE3D0 = animation_004EE3D0;
 	WriteData((NJS_OBJECT**)0x007B37EA, ((NJS_OBJECT*)0x8D4880)->getnode(50));
+	WriteData((NJS_OBJECT**)0x007B37F1, ((NJS_OBJECT*)0x8D4880)->getnode(54));
 }
 
 extern "C"
@@ -122,7 +122,7 @@ extern "C"
 			Init_Eggman();
 			ReplacePVM("eggman", "eggman_dx");
 			ReplacePVM("ev_eggman_body", "eggman_dx");
-			ReplacePVM("chaos6_eggman", "eggman_dx");
+			ReplacePVM("chaos6_eggman", "chaos6_eggman_dx");
 			ReplacePVM("egm1eggman", "eggman_dx");
 			ReplacePVM("egm2_common", "egm2_common_dx");
 			ReplacePVM("egm3mdl", "egm3mdl_dx");
@@ -130,7 +130,7 @@ extern "C"
 			ReplacePVM("mrace_eggmoble", "mrace_eggmoble_dx");
 			ReplacePVM("eggman_dc", "eggman_dx");
 			ReplacePVM("ev_eggman_body_dc", "eggman_dx");
-			ReplacePVM("chaos6_eggman_dc", "eggman_dx");
+			ReplacePVM("chaos6_eggman_dc", "chaos6_eggman_dx");
 			ReplacePVM("egm1eggman_dc", "eggman_dx");
 			ReplacePVM("egm2_common_dc", "egm2_common_dx");
 			ReplacePVM("egm3mdl_dc", "egm3mdl_dx");
